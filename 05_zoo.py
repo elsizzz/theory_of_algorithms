@@ -1,32 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Есть список животных в зоопарке
-zoo = ['lion', 'kangaroo', 'elephant', 'monkey']
 
-# Посадите медведя (bear) между львом и кенгуру
-# и выведите список на консоль
-zoo.insert(1, 'bear')
-print(zoo)
-
-
-# Добавьте птиц из списка birds в последние клетки зоопарка
-birds = ['rooster', 'ostrich', 'lark']
-# и выведите список на консоль
-zoo.extend(birds)
-print(zoo)
+def modify_zoo(initial_zoo: list, birds: list) -> list:
+    """Выполняет модификацию списка животных согласно заданию."""
+    zoo = initial_zoo.copy()
+    # 1. Посадить медведя между львом и кенгуру
+    zoo.insert(1, 'bear')
+    # 2. Добавить птиц в последние клетки
+    zoo.extend(birds)
+    # 3. Убрать слона
+    if 'elephant' in zoo:
+        zoo.remove('elephant')
+    return zoo
 
 
-# Уберите слона (elephant) из зоопарка
-# и выведите список на консоль
-zoo.remove('elephant')
-print(zoo)
+def get_animal_cage_number(zoo: list, animal_name: str) -> int:
+    """Возвращает номер клетки (1-индексированный)."""
+    return zoo.index(animal_name) + 1
 
 
-# Выведите на консоль в какой клетке сидит лев (lion) и жаворонок (lark).
-# Номера при выводе должны быть 1-индексированными (первая клетка - номер 1).
-lion_cage = zoo.index('lion') + 1
-lark_cage = zoo.index('lark') + 1
+if __name__ == '__main__':
+    zoo = ['lion', 'kangaroo', 'elephant', 'monkey']
+    birds = ['rooster', 'ostrich', 'lark']
 
-print(f'Лев сидит в клетке номер {lion_cage}')
-print(f'Жаворонок сидит в клетке номер {lark_cage}')
+    updated_zoo = modify_zoo(zoo, birds)
+    print(updated_zoo)
+    print(f'Лев сидит в клетке номер {get_animal_cage_number(updated_zoo, "lion")}')
+    print(f'Жаворонок сидит в клетке номер {get_animal_cage_number(updated_zoo, "lark")}')

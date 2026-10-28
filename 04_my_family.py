@@ -1,25 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Создайте списки:
 
-# моя семья (минимум 3 элемента, есть еще дедушки и бабушки, если что)
-my_family = ['Мама', 'Папа', 'Я', 'Бабушка']
+def get_family_data():
+    """Возвращает информацию о семье и их росте."""
+    my_family = ['Мама', 'Папа', 'Я', 'Бабушка']
+    my_family_height = [
+        ['Мама', 168],
+        ['Папа', 182],
+        ['Я', 175],
+        ['Бабушка', 160],
+    ]
+    return my_family, my_family_height
 
-# список списков приблизительного роста членов вашей семьи
-my_family_height = [
-    ['Мама', 168],
-    ['Папа', 182],
-    ['Я', 175],
-    ['Бабушка', 160],
-]
 
-# Выведите на консоль рост отца в формате
-#   Рост отца - ХХ см
-father_height = my_family_height[1][1]
-print(f'Рост отца - {father_height} см')
+def get_member_height(family_height: list, name: str) -> int:
+    """Возвращает рост конкретного члена семьи."""
+    for member, height in family_height:
+        if member == name:
+            return height
+    raise ValueError(f'Член семьи {name} не найден')
 
-# Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
-#   Общий рост моей семьи - ХХ см
-total_height = sum(member[1] for member in my_family_height)
-print(f'Общий рост моей семьи - {total_height} см')
+
+def get_total_family_height(family_height: list) -> int:
+    """Рассчитывает суммарный рост членов семьи."""
+    return sum(member[1] for member in family_height)
+
+
+if __name__ == '__main__':
+    family, family_height = get_family_data()
+    father_height = get_member_height(family_height, 'Папа')
+    print(f'Рост отца - {father_height} см')
+
+    total_height = get_total_family_height(family_height)
+    print(f'Общий рост моей семьи - {total_height} см')
